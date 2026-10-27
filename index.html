@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+  <title>UrbanForm — 3D 城市概念商店</title>
+  <link rel="stylesheet" href="styles.css" />
+  <script type="importmap">
+    {
+      "imports": {
+        "three": "https://cdn.jsdelivr.net/npm/three@0.160.1/build/three.module.js",
+        "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.160.1/examples/jsm/"
+      }
+    }
+  </script>
+  <!-- 渐进式加载库：自动接管 GLTFLoader，无需改动业务代码 -->
+  <script type="module" src="https://cdn.jsdelivr.net/npm/@needle-tools/gltf-progressive@latest/gltf-progressive.min.js"></script>
+</head>
+<body>
+
+  <header class="topbar">
+    <a href="#" class="brand">
+      <span class="brand-mark">◆</span>
+      <span class="brand-text">UrbanForm</span>
+    </a>
+    <nav class="nav-links" aria-label="主导航">
+      <a href="#city" class="nav-link active">城市模型</a>
+      <a href="#products" class="nav-link">精选物件</a>
+      <a href="#collections" class="nav-link">主题系列</a>
+    </nav>
+    <div class="nav-actions">
+      <button class="icon-btn cart-trigger" id="cartTrigger" aria-label="购物车">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8">
+          <circle cx="9" cy="21" r="1"/><circle cx="20" cy="21" r="1"/>
+          <path d="M1 1h4l2.68 13.39a2 2 0 0 0 2 1.61h9.72a2 2 0 0 0 2-1.61L23 6H6"/>
+        </svg>
+        <span class="cart-badge" id="cartBadge">0</span>
+      </button>
+    </div>
+  </header>
+
+  <main>
+    <section class="hero" id="city">
+      <div class="hero-copy">
+        <p class="eyebrow">数字孪生 · 城市收藏系列</p>
+        <h1>把一座<span>微缩城市</span><br />握在手中。</h1>
+        <p class="hero-desc">
+          Meshopt 几何压缩 + 渐进式流式加载，低模秒开，细节在后台静默抵达。
+        </p>
+        <div class="hero-actions">
+          <button class="btn btn-primary" id="resetViewBtn">重置视角</button>
+          <a href="#products" class="btn btn-ghost">浏览周边物件 →</a>
+        </div>
+        <div class="hero-meta">
+          <span><strong>Meshopt</strong> 压缩</span>
+          <span><strong>渐进式</strong> 流式加载</span>
+          <span><strong>秒开</strong> 低模首帧</span>
+        </div>
+      </div>
+
+      <div class="hero-stage" id="cityStage">
+        <canvas id="cityCanvas"></canvas>
+        <div class="stage-glow"></div>
+        <div class="stage-hint">
+          <span class="hint-dot"></span>
+          <span id="loadStatus">正在加载轻量模型…</span>
+        </div>
+      </div>
+    </section>
+
+    <section class="section" id="products">
+      <div class="section-head">
+        <div><p class="eyebrow">CURATED ITEMS</p><h2>城市衍生 · 精选物件</h2></div>
+      </div>
+      <div class="product-grid" id="productGrid"></div>
+    </section>
+  </main>
+
+  <footer class="footer">
+    <span>UrbanForm © 2025</span>
+    <span>Three.js · Meshopt · Progressive GLTF</span>
+  </footer>
+
+  <!-- 购物车抽屉（结构不变） -->
+  <div class="cart-overlay" id="cartOverlay"></div>
+  <aside class="cart-drawer" id="cartDrawer">
+    <div class="cart-head"><h3>购物车</h3><button class="icon-btn" id="cartClose">✕</button></div>
+    <div class="cart-body" id="cartBody"><p class="cart-empty">购物车还是空的。</p></div>
+    <div class="cart-foot">
+      <div class="cart-total"><span>合计</span><strong id="cartTotal">¥ 0</strong></div>
+      <button class="btn btn-primary btn-block" id="checkoutBtn">去结算</button>
+    </div>
+  </aside>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>
